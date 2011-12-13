@@ -1,0 +1,26 @@
+<html>
+  <body>
+<img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" />
+<p></p>
+<iframe width="640" height="360" src="http://www.youtube.com/embed/62-k783kNOw?rel=0" frameborder="0" allowfullscreen></iframe>
+<p></p>
+    {% for greeting in greetings %}
+      {% if greeting.author %}
+        <b>{{ greeting.author.nickname }}</b> says:
+      {% else %}
+       A strange person says:
+      {% endif %}
+      <blockquote>{{ greeting.content|escape }}</blockquote>
+    {% endfor %}
+    
+    {% if login %}
+      <form action="/sign" method="post">
+        <div><textarea name="content" rows="3" cols="60"></textarea></div>
+        <div><input type="submit" value="Sign Guestbook"></div>
+      </form>
+    {% endif %}
+
+    <a href="{{ url }}">{{ url_linktext }}</a>
+
+  </body>
+</html>
