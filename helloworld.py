@@ -21,7 +21,7 @@ class MainPage(webapp.RequestHandler):
       url_linktext = 'Logout'
     else:
       url = users.create_login_url(self.request.uri)
-      url_linktext = 'Login'
+      url_linktext = 'To use this service, please login here'
 
     template_values = {
       'greetings': greetings,
@@ -44,10 +44,25 @@ class Guestbook(webapp.RequestHandler):
     greeting.put()
     self.redirect('/')
 
+class Rider(webapp.RequestHandler):
+  def ridersubmit(self):
+    if users.get_current_user():
+      url = users.create_logout_url(self.request.uri)
+      url_linktext = 'Logout'
+    else:
+      url = users.create_login_url(self.request.uri)
+      self.redirect(url)
+
+class Knight(webapp.RequestHandler):
+  def knightsubmit(self):
+    self.redirect("youngerbike.appspot.com/")
+    
+
 application = webapp.WSGIApplication(
                                      [('/', MainPage),
                                       ('/sign', Guestbook),
-                                      ('/haha', MainPage)
+                                      ('/knight', Knight),
+                                      ('/rider', Rider)
                                      ],
                                      debug=True)
 
