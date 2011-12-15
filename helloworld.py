@@ -45,17 +45,25 @@ class Guestbook(webapp.RequestHandler):
     self.redirect('/')
 
 class Rider(webapp.RequestHandler):
-  def ridersubmit(self):
-    if users.get_current_user():
-      url = users.create_logout_url(self.request.uri)
-      url_linktext = 'Logout'
-    else:
-      url = users.create_login_url(self.request.uri)
-      self.redirect(url)
+  def get(self):
+    self.response.out.write("""
+      <html>
+        <body>
+          <a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
+          <p>Take it slowly, coming soon....</p>
+        </body>
+      </html>""")
+    
 
 class Knight(webapp.RequestHandler):
-  def knightsubmit(self):
-    self.redirect("youngerbike.appspot.com/")
+  def get(self):
+    self.response.out.write("""
+      <html>
+        <body>
+          <a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
+          <p>Take it slowly, coming soon....</p>
+        </body>
+      </html>""")
     
 
 application = webapp.WSGIApplication(
