@@ -1,0 +1,60 @@
+<html>
+  <body>
+<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
+<p></p>
+    <p></p>
+    <a href="{{ url }}">{{ url_linktext }}</a>
+    <p></p>
+    
+    <p>{% if login %}</p>
+    <form action="/signknight" method="post">
+      <div>Your Name:<input type="text" name="name" id="name"></div>
+      <div>Gender:<input type="radio" name="gender" value="male"/>Male <input type="radio" name="gender" value="female"/>Female</div>
+      
+      <div>
+      For 
+      the 
+        <select name="time" id="time">
+        <option value="null" selected> </option>
+        <option value="1">1st</option>
+        <option value="2">2nd</option>
+        <option value="3">3rd</option>
+        <option value="4">4th</option>
+        <option value="@">@</option>
+        <option value="5">5th</option>
+        <option value="6">6th</option>
+        <option value="7">7th</option>
+        <option value="8">8th</option>
+        <option value="9">9th</option>
+        <option value="a">A</option>
+        <option value="b">B</option>
+        <option value="c">C</option>
+        <option value="d">D</option>
+        <option value="e">E</option>
+      
+      </select> 
+      class</div>
+      from <select name="from" id="from">
+        <option>普通教學館(含博雅)</option>
+        <option>新生教學館</option>
+        <option>共同教學館</option>
+        <option>總圖</option>
+        <option>資工系館</option>
+        <option>長興宿舍區</option>
+        <option>大一女</option>
+      </select> 
+      to  <select name="to" id="to">
+        <option>普通教學館(含博雅)</option>
+        <option>新生教學館</option>
+        <option>共同教學館</option>
+        <option>總圖</option>
+        <option>資工系館</option>
+        <option>長興宿舍區</option>
+        <option>大一女</option>
+      </select> 
+      <div><input type="submit" value="Send and wait!"></div>
+    </form>
+    <p>&nbsp;</p>
+    <p> {% endif %} </p>
+  </body>
+</html>
