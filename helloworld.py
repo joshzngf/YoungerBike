@@ -10,6 +10,25 @@ class Greeting(db.Model):
   author = db.UserProperty()
   content = db.StringProperty(multiline=True)
   date = db.DateTimeProperty(auto_now_add=True)
+  
+class Knightprofile(db.Model):
+  user = db.UserProperty()
+  name = db.StringProperty()
+  gender = db.StringProperty()
+  time = db.StringProperty()
+  fromm = db.StringProperty()
+  to = db.StringProperty()
+  submitdate = db.DateTimeProperty(auto_now_add=True)
+
+
+class Riderprofile(db.Model):
+  user = db.UserProperty()
+  name = db.StringProperty()
+  gender = db.StringProperty()
+  time = db.StringProperty()
+  fromm = db.StringProperty()
+  to = db.StringProperty()
+  submitdate = db.DateTimeProperty(auto_now_add=True)
 
 class MainPage(webapp.RequestHandler):
   def get(self):
@@ -44,33 +63,96 @@ class Guestbook(webapp.RequestHandler):
     greeting.put()
     self.redirect('/')
 
+class Signknight(webapp.RequestHandler):
+  def post(self):
+    kprofile = Knightprofile()
+
+    if users.get_current_user():
+      kprofile.user = users.get_current_user()
+    kprofile.name = self.request.get('name')
+    kprofile.gender = self.request.get('gender')
+    kprofile.time = self.request.get('time')
+    kprofile.fromm = self.request.get('from')
+    kprofile.to = self.request.get('to')
+    kprofile.put()
+    self.redirect('/')
+
+
+class Admin(webapp.RequestHandler):
+  def get(self):
+    kprofiles_query = Knightprofile.all().order('-submitdate')
+    kprofiles = kprofiles_query.fetch(10)
+
+    template_values = {
+      'kprofiles': kprofiles,
+      'login': users.get_current_user(),
+      }
+
+    path = os.path.join(os.path.dirname(__file__), 'admin.html')
+    self.response.out.write(template.render(path, template_values))
+
+
+class Signrider(webapp.RequestHandler):
+  def post(self):
+    rprofile = Riderprofile()
+
+    if users.get_current_user():
+      rprofile.user = users.get_current_user()
+    rprofile.name = self.request.get('name')
+    rprofile.gender = self.request.get('gender')
+    rprofile.time = self.request.get('time')
+    rprofile.fromm = self.request.get('from')
+    rprofile.to = self.request.get('to')
+    rprofile.put()
+    self.redirect('/')
+
+
 class Rider(webapp.RequestHandler):
   def get(self):
-    self.response.out.write("""
-      <html>
-        <body>
-          <a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
-          <p>Take it slowly, coming soon....</p>
-        </body>
-      </html>""")
+    if users.get_current_user():
+      url = users.create_logout_url(self.request.uri)
+      url_linktext = 'Logout'
+    else:
+      url = users.create_login_url(self.request.uri)
+      url_linktext = 'To use this service, please login here'
+
+    template_values = {
+      'url': url,
+      'url_linktext': url_linktext,
+      'login': users.get_current_user(),
+      }
+
+    path = os.path.join(os.path.dirname(__file__), 'rider.html')
+    self.response.out.write(template.render(path, template_values))
     
 
 class Knight(webapp.RequestHandler):
   def get(self):
-    self.response.out.write("""
-      <html>
-        <body>
-          <a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
-          <p>Take it slowly, coming soon....</p>
-        </body>
-      </html>""")
+    if users.get_current_user():
+      url = users.create_logout_url(self.request.uri)
+      url_linktext = 'Logout'
+    else:
+      url = users.create_login_url(self.request.uri)
+      url_linktext = 'To use this service, please login here'
+
+    template_values = {
+      'url': url,
+      'url_linktext': url_linktext,
+      'login': users.get_current_user(),
+      }
+
+    path = os.path.join(os.path.dirname(__file__), 'knight.html')
+    self.response.out.write(template.render(path, template_values))
     
 
 application = webapp.WSGIApplication(
                                      [('/', MainPage),
                                       ('/sign', Guestbook),
                                       ('/knight', Knight),
-                                      ('/rider', Rider)
+                                      ('/rider', Rider),
+                                      ('/signrider', Signrider),
+                                      ('/signknight', Signknight),
+				      ('/admin', Admin)
                                      ],
                                      debug=True)
 
