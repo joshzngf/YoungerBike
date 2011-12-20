@@ -8,26 +8,36 @@
 <a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
 <p>Welcome to Administration system!!!</p>
 
-    <p>Knights</p>
+    <h3>Knights</h3>
 
     {% for kprofile in kprofiles %}
+	  <p>
+	  {{ kprofile.user  }}</br>
       {{ kprofile.name  }}
-      {{ kprofile.gender}}
-      {{ kprofile.time }}
-      {{ kprofile.fromm }}
-      {{ kprofile.to  }}
-      <p></p>
+	  <b>{{ kprofile.gender}}</b></br>
+      at class 
+	  <b>{{ kprofile.time }}</b>
+	  From
+      <b>{{ kprofile.fromm }}</b>
+	  to
+      <b>{{ kprofile.to  }}</b>
+      </p>
     {% endfor %} 
     
-    <p>Riders</p> 
+    <h3>Riders</h3> 
 
     {% for rprofile in rprofiles %}
-      {{ rprofile.name  }}
-      {{ rprofile.gender}}
-      {{ rprofile.time }}
-      {{ rprofile.fromm }}
-      {{ rprofile.to  }}
-      <p></p>
+      <p>
+	  {{ rprofile.user  }}</br>
+	  {{ rprofile.name  }}
+      <b>{{ rprofile.gender}}</b></br>
+      at class
+	  <b>{{ rprofile.time }}</b>
+	  From
+      <b>{{ rprofile.fromm }}</b>
+	  to
+      <b>{{ rprofile.to  }}</b>
+      </p>
     
     {% endfor %} 
     

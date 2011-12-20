@@ -5,20 +5,22 @@
 
 
   <body>
-<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
-<p></p>
-<iframe width="640" height="360" src="http://www.youtube.com/embed/62-k783kNOw?rel=0" frameborder="0" allowfullscreen></iframe>
-<p></p>
-    {% if login %}
-      <a href="/knight"><img src="http://csie.ntu.edu.tw/~b00902084/giveride.png" alt="Be someone's knight" width="351" height="55" /></a>
+	<p>
+	<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
+	</p>
+	<p>
+	<iframe width="640" height="360" src="http://www.youtube.com/embed/62-k783kNOw?rel=0" frameborder="0" allowfullscreen></iframe>
+    </p>
+	{% if login %}
+      <p>
+	  <a href="/knight"><img src="http://csie.ntu.edu.tw/~b00902084/giveride.png" alt="Be someone's knight" width="351" height="55" /></a>
       <a href="/rider"><img src="http://csie.ntu.edu.tw/~b00902084/takeride.png" alt="Ride on other's bike" width="351" height="55" /></a>
-      <p></p>
-    {% endif %}
-    <p></p>
-    <a href="{{ url }}">{{ url_linktext }}</a>
-    <p></p>
+      </p>
+    
 
     {% for greeting in greetings %}
+	  {{ greeting.date.date }}
+	  {{ greeting.date.hour }}: {{ greeting.date.minute }}:{{ greeting.date.second }}</br>
       {% if greeting.author %}
         <b>{{ greeting.author.nickname }}</b> says:
       {% else %}
@@ -34,7 +36,12 @@
       </form>
     {% endif %}
 
+    {% endif %}
     
+	<p>
+    <h3><a href="{{ url }}">{{ url_linktext }}</a></h3>
+    </p>
+	
 
   </body>
 </html>
