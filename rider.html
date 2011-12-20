@@ -1,0 +1,59 @@
+<html>
+  <body>
+	<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
+    {% if login %}
+    <p>
+	Welcome to Rider page <b>{{ login.nickname }}</b>!!</br>
+    </p>
+	<form action="/signrider" method="post">
+      <div>Your Name:<input type="text" name="name" id="name"></div>
+      <div>Gender:<input type="radio" name="gender" value="male"/>Male <input type="radio" name="gender" value="female"/>Female</div>
+      
+      <div>
+      For 
+      the 
+        <select name="time" id="time">
+        <option value="null" selected> </option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="@">@</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="a">A</option>
+        <option value="b">B</option>
+        <option value="c">C</option>
+        <option value="d">D</option>
+        <option value="e">E</option>
+      
+      </select> 
+      class</div>
+      from <select name="from" id="from">
+        <option>普通(含博雅)</option>
+        <option>新生</option>
+        <option>共同</option>
+        <option>總圖</option>
+        <option>資工系館</option>
+		<option>長興</option>
+        <option>大一女</option>
+      </select> 
+      to  <select name="to" id="to">
+        <option>普通(含博雅)</option>
+        <option>新生</option>
+		<option>共同</option>
+        <option>總圖</option>
+        <option>資工系館</option>
+        <option>長興</option>
+        <option>大一女</option>
+      </select> 
+      <div><input type="submit" value="Send and wait!"></div>
+    </form>
+    {% endif %}
+	<a href="{{ url }}">{{ url_linktext }}</a></br>
+	<a href="/">Back To Main Page</a>
+  </body>
+</html>
