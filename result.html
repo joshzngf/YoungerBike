@@ -1,0 +1,40 @@
+<html>
+  <head>
+  <title>Younger's Bike - An online riding-together registration system </title>
+  </head>
+
+
+  <body>
+<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
+<p>Welcome to Administration system!!!</p>
+
+	<h3>Match for you being a rider</h3> 
+    {% for matchprofile in matchrprofiles %}
+      <p>
+	  {{ matchprofile.kname  }} and {{ matchprofile.rname }}</br>
+      at class
+      <b>{{ matchprofile.time }}</b>
+	  From
+      <b>{{ matchprofile.fromm }}</b>
+	  to
+      <b>{{ matchprofile.to  }}</b>
+      </p>
+    
+    {% endfor %}    
+    	<h3>Match for you being a knight</h3> 
+    {% for matchprofile in matchkprofiles %}
+      <p>
+	  {{ matchprofile.kname  }} and {{ matchprofile.rname }}</br>
+      at class
+	  <b>{{ matchprofile.time }}</b>
+	  From
+      <b>{{ matchprofile.fromm }}</b>
+	  to
+      <b>{{ matchprofile.to  }}</b>
+      </p>
+    
+    {% endfor %}   
+
+  </body>
+</html>
+
