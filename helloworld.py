@@ -6,6 +6,67 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
 
+
+
+class HWGreeting(db.Model):
+  author = db.UserProperty()
+  content = db.StringProperty(multiline=True)
+  date = db.DateTimeProperty(auto_now_add=True)
+
+
+class HWGuestbook(webapp.RequestHandler):
+  def post(self):
+    greeting = HWGreeting()
+
+    if users.get_current_user():
+      greeting.author = users.get_current_user()
+
+    greeting.content = self.request.get('content')
+    greeting.put()
+    self.redirect('/homework')
+
+
+class Homework(webapp.RequestHandler):
+     def get(self):
+	greetings_query = HWGreeting.all().order('-date')
+#	greetings_query.reverse()
+	greetings = greetings_query.fetch(10)
+	if users.get_current_user():
+	  url = users.create_logout_url(self.request.uri)
+	  url_linktext = 'Logout'
+	else:
+	  url = users.create_login_url(self.request.uri)
+	  url_linktext = 'To post on this guestbook, please login here'
+	
+	template_values = {
+	  'greetings': greetings,
+	  'url': url,
+	  'url_linktext': url_linktext,
+	  'login': users.get_current_user(),
+	  }
+	path = os.path.join(os.path.dirname(__file__), 'homework.html')
+	self.response.out.write(template.render(path, template_values))
+
+class Homeworkprofile(webapp.RequestHandler):
+     def get(self):
+	if users.get_current_user():
+	  url = users.create_logout_url(self.request.uri)
+	  url_linktext = 'Logout'
+	else:
+	  url = users.create_login_url(self.request.uri)
+	  url_linktext = 'Login'
+	
+	template_values = {
+	  'url': url,
+	  'url_linktext': url_linktext,
+	  'login': users.get_current_user(),
+	  }
+	path = os.path.join(os.path.dirname(__file__), 'homeworkprofile.html')
+	self.response.out.write(template.render(path, template_values))
+
+
+
+
 class Greeting(db.Model):
   author = db.UserProperty()
   content = db.StringProperty(multiline=True)
@@ -18,6 +79,9 @@ class Knightprofile(db.Model):
   time = db.StringProperty()
   fromm = db.StringProperty()
   to = db.StringProperty()
+  email = db.StringProperty()
+  day = db.StringProperty()
+  fb = db.StringProperty()
   submitdate = db.DateTimeProperty(auto_now_add=True)
 
 
@@ -28,6 +92,9 @@ class Riderprofile(db.Model):
   time = db.StringProperty()
   fromm = db.StringProperty()
   to = db.StringProperty()
+  email = db.StringProperty()
+  day = db.StringProperty()
+  fb = db.StringProperty()
   submitdate = db.DateTimeProperty(auto_now_add=True)
   
 class Matchprofile(db.Model):
@@ -84,6 +151,9 @@ class Signknight(webapp.RequestHandler):
     kprofile.time = self.request.get('time')
     kprofile.fromm = self.request.get('from')
     kprofile.to = self.request.get('to')
+    kprofile.email= self.request.get('email')
+    kprofile.fb = self.request.get('fb')
+    kprofile.day = self.request.get('day')
     kprofile.put()
     self.redirect('/')
 
@@ -98,6 +168,10 @@ class Signrider(webapp.RequestHandler):
     rprofile.time = self.request.get('time')
     rprofile.fromm = self.request.get('from')
     rprofile.to = self.request.get('to')
+    rprofile.email= self.request.get('email')
+    rprofile.fb = self.request.get('fb')
+    rprofile.day = self.request.get('day')
+
     rprofile.put()
     self.redirect('/')
 
@@ -129,11 +203,13 @@ class Admin(webapp.RequestHandler):
 	matchprofiles = matchprofiles_query.fetch(10)
 	
 	template_values = {
-      'kprofiles': kprofiles,
-      'rprofiles': rprofiles,
-	  'matchprofiles': matchprofiles,
-      'login': users.get_current_user(),
+		'kprofiles': kprofiles,
+		'rprofiles': rprofiles,
+		'matchprofiles': matchprofiles,
+		'login': users.get_current_user(),
       }
+
+
 	path = os.path.join(os.path.dirname(__file__), 'admin.html')
 	self.response.out.write(template.render(path, template_values))
 
@@ -173,7 +249,7 @@ class Knight(webapp.RequestHandler):
 
     path = os.path.join(os.path.dirname(__file__), 'knight.html')
     self.response.out.write(template.render(path, template_values))
-    
+
 
 application = webapp.WSGIApplication(
                                      [('/', MainPage),
@@ -182,7 +258,10 @@ application = webapp.WSGIApplication(
                                       ('/rider', Rider),
                                       ('/signrider', Signrider),
                                       ('/signknight', Signknight),
-				      ('/admin', Admin)
+				      ('/admin', Admin),
+				      ('/homework', Homework),
+				      ('/homework/profile', Homeworkprofile),
+				      ('/homework/sign',HWGuestbook)
                                      ],
                                      debug=True)
 
