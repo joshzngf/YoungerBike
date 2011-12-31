@@ -154,6 +154,19 @@ class Signknight(webapp.RequestHandler):
     kprofile.email= self.request.get('email')
     kprofile.fb = self.request.get('fb')
     kprofile.day = self.request.get('day')
+    rprofiles_query = Riderprofile.all().order('-submitdate')
+    rprofiles = rprofiles_query.fetch(10)
+    for rprofile in rprofiles:
+	if (rprofile.time == kprofile.time) and (rprofile.fromm == kprofile.fromm) and (rprofile.to == kprofile.to) and (rprofile.day == kprofile.day) :
+				Match = Matchprofile()
+				Match.knight = kprofile.user
+				Match.kname = kprofile.name
+				Match.rider = rprofile.user
+				Match.rname = rprofile.name
+				Match.time = rprofile.time
+				Match.fromm = rprofile.fromm
+				Match.to = rprofile.to				
+				Match.put()
     kprofile.put()
     self.redirect('/')
 
@@ -172,23 +185,12 @@ class Signrider(webapp.RequestHandler):
     rprofile.fb = self.request.get('fb')
     rprofile.day = self.request.get('day')
 
-    rprofile.put()
-    self.redirect('/')
 
-class Admin(webapp.RequestHandler):
-  def get(self):
-	kprofiles_query = Knightprofile.all().order('-submitdate')
-	kprofiles = kprofiles_query.fetch(10)
-	rprofiles_query = Riderprofile.all().order('-submitdate')
-	rprofiles = rprofiles_query.fetch(10)
+    kprofiles_query = Knightprofile.all().order('-submitdate')
+    kprofiles = kprofiles_query.fetch(10)
 
-	matchprofiles_query = Matchprofile.all().order('-submitdate')
-	for matchprofiles in matchprofiles_query :
-		matchprofiles.delete()
-
-	for kprofile in kprofiles:
-		for rprofile in rprofiles:
-			if rprofile.time == kprofile.time:
+    for kprofile in kprofiles:
+	if (rprofile.time == kprofile.time) and (rprofile.fromm == kprofile.fromm) and (rprofile.to == kprofile.to) and (rprofile.day == kprofile.day) :
 				Match = Matchprofile()
 				Match.knight = kprofile.user
 				Match.kname = kprofile.name
@@ -199,6 +201,16 @@ class Admin(webapp.RequestHandler):
 				Match.to = rprofile.to				
 				Match.put()
 
+
+    rprofile.put()
+    self.redirect('/')
+
+class Admin(webapp.RequestHandler):
+  def get(self):
+	kprofiles_query = Knightprofile.all().order('-submitdate')
+	kprofiles = kprofiles_query.fetch(10)
+	rprofiles_query = Riderprofile.all().order('-submitdate')
+	rprofiles = rprofiles_query.fetch(10)
 	matchprofiles_query = Matchprofile.all().order('-submitdate')
 	matchprofiles = matchprofiles_query.fetch(10)
 
@@ -212,6 +224,26 @@ class Admin(webapp.RequestHandler):
 
 	path = os.path.join(os.path.dirname(__file__), 'admin.html')
 	self.response.out.write(template.render(path, template_values))
+
+
+class Result(webapp.RequestHandler):
+  def get(self):
+	matchkprofiles_query = Matchprofile.all().order('-submitdate')
+	matchkprofiles = matchkprofiles_query.filter('knight = ', users.get_current_user())
+
+	matchrprofiles_query = Matchprofile.all().order('-submitdate')
+	matchrprofiles = matchrprofiles_query.filter('rider = ', users.get_current_user())
+
+	template_values = {
+		'matchkprofiles': matchkprofiles,
+		'matchrprofiles': matchrprofiles,
+		'login': users.get_current_user(),
+      }
+
+
+	path = os.path.join(os.path.dirname(__file__), 'result.html')
+	self.response.out.write(template.render(path, template_values))
+
 
 class Rider(webapp.RequestHandler):
   def get(self):
@@ -261,7 +293,8 @@ application = webapp.WSGIApplication(
 				      ('/admin', Admin),
 				      ('/homework', Homework),
 				      ('/homework/profile', Homeworkprofile),
-				      ('/homework/sign',HWGuestbook)
+				      ('/homework/sign',HWGuestbook),
+				      ('/result',Result)
                                      ],
                                      debug=True)
 

@@ -1,7 +1,6 @@
 <html>
   <head>
   <title>Younger's Bike - An online riding-together registration system </title>
-  
   </head>
 
 
@@ -42,7 +41,7 @@
 	<p>
     <h3><a href="{{ url }}">{{ url_linktext }}</a></h3>
     </p>
-	
+
 
   </body>
 </html>
