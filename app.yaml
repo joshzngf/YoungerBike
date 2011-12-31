@@ -1,4 +1,3 @@
-
 application: youngerbike
 version: 1
 runtime: python
@@ -6,9 +5,5 @@ api_version: 1
 handlers:
 - url: /.*
   script: helloworld.py
-
-- url: /images
-  static_dir: images
-
-- url: /stylesheets
-  static_dir: stylesheets
+- url: /images/
+  static_dir: static_dir/images/

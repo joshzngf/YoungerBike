@@ -20,12 +20,7 @@
 	  From
       <b>{{ kprofile.fromm }}</b>
 	  to
-
       <b>{{ kprofile.to  }}</b>
-
-
-	  <b>{{ kprofile.to  }}</b>
-
       </p>
     {% endfor %} 
     
@@ -41,27 +36,12 @@
 	  From
       <b>{{ rprofile.fromm }}</b>
 	  to
-	  <b>{{ rprofile.to  }}</b>
-	  on<b>{{ rprofile.day  }}</b>
-	  fb:<b>{{ rprofile.fb  }}</b>
-	  email:<b>{{ rprofile.email  }}</b>
+      <b>{{ rprofile.to  }}</b>
       </p>
     
     {% endfor %} 
     
-	<h3>Match</h3> 
-    {% for matchprofile in matchprofiles %}
-      <p>
-	  {{ matchprofile.kname  }} and {{ matchprofile.rname }}</br>
-      at class
-	  <b>{{ matchprofile.time }}</b>
-	  From
-      <b>{{ matchprofile.fromm }}</b>
-	  to
-      <b>{{ matchprofile.to  }}</b>
-      </p>
     
-    {% endfor %}    
     
 
   </body>
