@@ -1,12 +1,13 @@
 <html>
   <head>
   <title>Younger's Bike - An online riding-together registration system </title>
+  
   </head>
 
 
   <body>
 	<p>
-	<a href="/"><img src="/images/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
+	<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
 	</p>
 	<p>
 	<iframe width="640" height="360" src="http://www.youtube.com/embed/62-k783kNOw?rel=0" frameborder="0" allowfullscreen></iframe>

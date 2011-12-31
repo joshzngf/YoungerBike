@@ -20,8 +20,7 @@
 	  From
       <b>{{ kprofile.fromm }}</b>
 	  to
-	  <b>{{ kprofile.to  }}</b>
-<b>{{ kprofile.day  }}</b><b>{{ kprofile.fb  }}</b><b>{{ kprofile.email  }}</b>
+      <b>{{ kprofile.to  }}</b>
       </p>
     {% endfor %} 
     
@@ -37,10 +36,7 @@
 	  From
       <b>{{ rprofile.fromm }}</b>
 	  to
-	  <b>{{ rprofile.to  }}</b>
-	  <b>{{ rprofile.day  }}</b>
-	  <b>{{ rprofile.fb  }}</b>
-	  <b>{{ rprofile.email  }}</b>
+      <b>{{ rprofile.to  }}</b>
       </p>
     
     {% endfor %} 
