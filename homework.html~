@@ -1,0 +1,36 @@
+<html>
+  <head>
+  <title>Joshua's Guestbook </title>
+  </head>
+
+
+  <body>
+   <p> 
+   <h3><a href="/homework/profile">Click here to see my profile!</a></h3>
+   </p>
+    {% for greeting in greetings %}
+	  {{ greeting.date.date }}
+	  {{ greeting.date.hour }}: {{ greeting.date.minute }}:{{ greeting.date.second }}</br>
+      {% if greeting.author %}
+        <b>{{ greeting.author.nickname }}</b> says:
+      {% else %}
+       A strange person says:
+      {% endif %}
+      <blockquote>{{ greeting.content|escape }}</blockquote>
+    {% endfor %}
+    
+    {% if login %}
+      <form action="/homework/sign" method="post">
+        <div><textarea name="content" rows="3" cols="60"></textarea></div>
+        <div><input type="submit" value="Sign Guestbook"></div>
+      </form>
+    {% endif %}
+
+    
+	<p>
+    <h3><a href="{{ url }}">{{ url_linktext }}</a></h3>
+    </p>
+	
+
+  </body>
+</html>

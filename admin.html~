@@ -1,0 +1,52 @@
+<html>
+  <head>
+  <title>Younger's Bike - An online riding-together registration system </title>
+  </head>
+
+
+  <body>
+<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
+<p>Welcome to Administration system!!!</p>
+
+    <h3>Knights</h3>
+
+    {% for kprofile in kprofiles %}
+	  <p>
+	  {{ kprofile.user  }}</br>
+      {{ kprofile.name  }}
+	  <b>{{ kprofile.gender}}</b></br>
+      at class 
+	  <b>{{ kprofile.time }}</b>
+	  From
+      <b>{{ kprofile.fromm }}</b>
+	  to
+	  <b>{{ kprofile.to  }}</b>
+<b>{{ kprofile.day  }}</b><b>{{ kprofile.fb  }}</b><b>{{ kprofile.email  }}</b>
+      </p>
+    {% endfor %} 
+    
+    <h3>Riders</h3> 
+
+    {% for rprofile in rprofiles %}
+      <p>
+	  {{ rprofile.user  }}</br>
+	  {{ rprofile.name  }}
+      <b>{{ rprofile.gender}}</b></br>
+      at class
+	  <b>{{ rprofile.time }}</b>
+	  From
+      <b>{{ rprofile.fromm }}</b>
+	  to
+	  <b>{{ rprofile.to  }}</b>
+	  <b>{{ rprofile.day  }}</b>
+	  <b>{{ rprofile.fb  }}</b>
+	  <b>{{ rprofile.email  }}</b>
+      </p>
+    
+    {% endfor %} 
+    
+    
+    
+
+  </body>
+</html>

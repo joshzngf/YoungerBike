@@ -1,0 +1,21 @@
+body {
+  font-family: romen, Helvetica, sans-serif;
+  background-color: #DDDDDD;
+}
+form{
+
+text-align:center;
+}
+blockquote
+{
+color:;
+}
+div.ex
+{
+width:220px;
+padding:10px;
+border:5px solid gray;
+border-style:ridge;
+
+margin:0px;
+}
