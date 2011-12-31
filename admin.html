@@ -21,6 +21,7 @@
       <b>{{ kprofile.fromm }}</b>
 	  to
       <b>{{ kprofile.to  }}</b>
+
       </p>
     {% endfor %} 
     
@@ -41,7 +42,19 @@
     
     {% endfor %} 
     
+	<h3>Match</h3> 
+    {% for matchprofile in matchprofiles %}
+      <p>
+	  {{ matchprofile.kname  }} and {{ matchprofile.rname }}</br>
+      at class
+	  <b>{{ matchprofile.time }}</b>
+	  From
+      <b>{{ matchprofile.fromm }}</b>
+	  to
+      <b>{{ matchprofile.to  }}</b>
+      </p>
     
+    {% endfor %}    
     
 
   </body>

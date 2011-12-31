@@ -29,7 +29,18 @@ class Riderprofile(db.Model):
   fromm = db.StringProperty()
   to = db.StringProperty()
   submitdate = db.DateTimeProperty(auto_now_add=True)
-
+  
+class Matchprofile(db.Model):
+	knight = db.UserProperty()
+	kname = db.StringProperty()
+	rider = db.UserProperty()
+	rname = db.StringProperty()
+	time = db.StringProperty()
+	fromm = db.StringProperty()
+	to = db.StringProperty()
+	submitdate = db.DateTimeProperty(auto_now_add=True)
+	
+ 
 class MainPage(webapp.RequestHandler):
   def get(self):
 	greetings_query = Greeting.all().order('-date')
@@ -96,9 +107,31 @@ class Admin(webapp.RequestHandler):
 	kprofiles = kprofiles_query.fetch(10)
 	rprofiles_query = Riderprofile.all().order('-submitdate')
 	rprofiles = rprofiles_query.fetch(10)
+	
+	matchprofiles_query = Matchprofile.all().order('-submitdate')
+	for matchprofiles in matchprofiles_query :
+		matchprofiles.delete()
+		
+	for kprofile in kprofiles:
+		for rprofile in rprofiles:
+			if rprofile.time == kprofile.time:
+				Match = Matchprofile()
+				Match.knight = kprofile.user
+				Match.kname = kprofile.name
+				Match.rider = rprofile.user
+				Match.rname = rprofile.name
+				Match.time = rprofile.time
+				Match.fromm = rprofile.fromm
+				Match.to = rprofile.to				
+				Match.put()
+	
+	matchprofiles_query = Matchprofile.all().order('-submitdate')
+	matchprofiles = matchprofiles_query.fetch(10)
+	
 	template_values = {
       'kprofiles': kprofiles,
       'rprofiles': rprofiles,
+	  'matchprofiles': matchprofiles,
       'login': users.get_current_user(),
       }
 	path = os.path.join(os.path.dirname(__file__), 'admin.html')
