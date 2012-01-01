@@ -82,6 +82,7 @@ class Knightprofile(db.Model):
   email = db.StringProperty()
   day = db.StringProperty()
   fb = db.StringProperty()
+  phone = db.StringProperty()
   submitdate = db.DateTimeProperty(auto_now_add=True)
 
 
@@ -95,13 +96,21 @@ class Riderprofile(db.Model):
   email = db.StringProperty()
   day = db.StringProperty()
   fb = db.StringProperty()
+  phone = db.StringProperty()
   submitdate = db.DateTimeProperty(auto_now_add=True)
   
 class Matchprofile(db.Model):
 	knight = db.UserProperty()
 	kname = db.StringProperty()
+	kemail = db.StringProperty()
+	kfb = db.StringProperty()
+	kphone = db.StringProperty()
+	day = db.StringProperty()
 	rider = db.UserProperty()
 	rname = db.StringProperty()
+	remail = db.StringProperty()
+	rfb = db.StringProperty()
+	rphone = db.StringProperty()
 	time = db.StringProperty()
 	fromm = db.StringProperty()
 	to = db.StringProperty()
@@ -154,11 +163,13 @@ class Signknight(webapp.RequestHandler):
     kprofile.email= self.request.get('email')
     kprofile.fb = self.request.get('fb')
     kprofile.day = self.request.get('day')
+    kprofile.phone = self.request.get('phone')
     rprofiles_query = Riderprofile.all().order('-submitdate')
     rprofiles = rprofiles_query.fetch(10)
     for rprofile in rprofiles:
 	if (rprofile.time == kprofile.time) and (rprofile.fromm == kprofile.fromm) and (rprofile.to == kprofile.to) and (rprofile.day == kprofile.day) :
 				Match = Matchprofile()
+				Match.day = kprofile.day
 				Match.knight = kprofile.user
 				Match.kname = kprofile.name
 				Match.rider = rprofile.user
@@ -166,7 +177,14 @@ class Signknight(webapp.RequestHandler):
 				Match.time = rprofile.time
 				Match.fromm = rprofile.fromm
 				Match.to = rprofile.to				
+				Match.kfb = kprofile.fb
+				Match.kemail = kprofile.email
+				Match.kphone = kprofile.phone
+				Match.rfb = rprofile.fb
+				Match.remail = rprofile.email
+				Match.rphone = rprofile.phone
 				Match.put()
+
     kprofile.put()
     self.redirect('/')
 
@@ -184,7 +202,7 @@ class Signrider(webapp.RequestHandler):
     rprofile.email= self.request.get('email')
     rprofile.fb = self.request.get('fb')
     rprofile.day = self.request.get('day')
-
+    rprofile.phone = self.request.get('phone')
 
     kprofiles_query = Knightprofile.all().order('-submitdate')
     kprofiles = kprofiles_query.fetch(10)
@@ -192,13 +210,20 @@ class Signrider(webapp.RequestHandler):
     for kprofile in kprofiles:
 	if (rprofile.time == kprofile.time) and (rprofile.fromm == kprofile.fromm) and (rprofile.to == kprofile.to) and (rprofile.day == kprofile.day) :
 				Match = Matchprofile()
+				Match.day = kprofile.day
 				Match.knight = kprofile.user
 				Match.kname = kprofile.name
 				Match.rider = rprofile.user
 				Match.rname = rprofile.name
 				Match.time = rprofile.time
 				Match.fromm = rprofile.fromm
-				Match.to = rprofile.to				
+				Match.to = rprofile.to	
+				Match.kfb = kprofile.fb
+				Match.kemail = kprofile.email
+				Match.kphone = kprofile.phone
+				Match.rfb = rprofile.fb
+				Match.remail = rprofile.email
+				Match.rphone = rprofile.phone
 				Match.put()
 
 

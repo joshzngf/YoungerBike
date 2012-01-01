@@ -11,26 +11,28 @@
 	<h3>Match for you being a rider</h3> 
     {% for matchprofile in matchrprofiles %}
       <p>
-	  {{ matchprofile.kname  }} and {{ matchprofile.rname }}</br>
+	 <b> {{ matchprofile.kname  }}</b> and <b>{{ matchprofile.rname }}</b></br>
       at class
-      <b>{{ matchprofile.time }}</b>
-	  From
+      <b>{{ matchprofile.time }}</b> on <b>{{ matchprofile.day }}</b>
+	  From 
       <b>{{ matchprofile.fromm }}</b>
 	  to
       <b>{{ matchprofile.to  }}</b>
+      <br />Knight's fb: <b>{{ matchprofile.kfb }}</b> phone: <b>{{ matchprofile.kphone }}</b> email: <b>{{ matchprofile.kemail }}</b>
       </p>
     
     {% endfor %}    
     	<h3>Match for you being a knight</h3> 
     {% for matchprofile in matchkprofiles %}
       <p>
-	  {{ matchprofile.kname  }} and {{ matchprofile.rname }}</br>
+	<b>  {{ matchprofile.kname  }}</b> and <b>{{ matchprofile.rname }}</b></br>
       at class
 	  <b>{{ matchprofile.time }}</b>
 	  From
       <b>{{ matchprofile.fromm }}</b>
 	  to
       <b>{{ matchprofile.to  }}</b>
+      <br />Rider's fb: <b>{{ matchprofile.rfb }}</b> phone: <b>{{ matchprofile.rphone }}</b> email: <b>{{ matchprofile.remail }}</b>
       </p>
     
     {% endfor %}   
