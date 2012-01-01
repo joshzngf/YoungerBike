@@ -1,9 +1,0 @@
-
-[Desktop Entry]
-Name=Stocks
-Encoding=UTF-8
-Version=1.0
-Type=Application
-Exec=gnome-terminal --command="google_appengine/appcfg.py update /media/DATA/Joshua/NTU/Introduction\\ to\\ Computer/YoungerBike/"
-Icon=/usr/share/screenlets/screenlets-pack-basic/Stocks/icon.svg
-Name[zh_TW]=Update Younger Bike
