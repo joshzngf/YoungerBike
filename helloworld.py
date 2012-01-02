@@ -285,7 +285,7 @@ application = webapp.WSGIApplication(
                                       ('/rider', Rider),
                                       ('/signrider', Signrider),
                                       ('/signknight', Signknight),
-				      ('/admin', Admin),
+				      ('/onedayyoungerwasridingabicycleandthestorybegan', Admin),
 				      ('/homework/profile', Homeworkprofile),
 				      ('/result',Result)
                                      ],
