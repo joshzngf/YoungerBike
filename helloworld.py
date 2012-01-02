@@ -7,46 +7,6 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
 
 
-
-class HWGreeting(db.Model):
-  author = db.UserProperty()
-  content = db.StringProperty(multiline=True)
-  date = db.DateTimeProperty(auto_now_add=True)
-
-
-class HWGuestbook(webapp.RequestHandler):
-  def post(self):
-    greeting = HWGreeting()
-
-    if users.get_current_user():
-      greeting.author = users.get_current_user()
-
-    greeting.content = self.request.get('content')
-    greeting.put()
-    self.redirect('/homework')
-
-
-class Homework(webapp.RequestHandler):
-     def get(self):
-	greetings_query = HWGreeting.all().order('-date')
-#	greetings_query.reverse()
-	greetings = greetings_query.fetch(10)
-	if users.get_current_user():
-	  url = users.create_logout_url(self.request.uri)
-	  url_linktext = 'Logout'
-	else:
-	  url = users.create_login_url(self.request.uri)
-	  url_linktext = 'To post on this guestbook, please login here'
-
-	template_values = {
-	  'greetings': greetings,
-	  'url': url,
-	  'url_linktext': url_linktext,
-	  'login': users.get_current_user(),
-	  }
-	path = os.path.join(os.path.dirname(__file__), 'homework.html')
-	self.response.out.write(template.render(path, template_values))
-
 class Homeworkprofile(webapp.RequestHandler):
      def get(self):
 	if users.get_current_user():
@@ -64,13 +24,11 @@ class Homeworkprofile(webapp.RequestHandler):
 	path = os.path.join(os.path.dirname(__file__), 'homeworkprofile.html')
 	self.response.out.write(template.render(path, template_values))
 
-
-
-
 class Greeting(db.Model):
   author = db.UserProperty()
   content = db.StringProperty(multiline=True)
   date = db.DateTimeProperty(auto_now_add=True)
+  
   
 class Knightprofile(db.Model):
   user = db.UserProperty()
@@ -120,8 +78,7 @@ class Matchprofile(db.Model):
 class MainPage(webapp.RequestHandler):
   def get(self):
 	greetings_query = Greeting.all().order('-date')
-#	greetings_query.reverse()
-	greetings = greetings_query.fetch(10)
+	greetings = greetings_query.fetch(5)
 	if users.get_current_user():
 	  url = users.create_logout_url(self.request.uri)
 	  url_linktext = 'Logout'
@@ -151,23 +108,25 @@ class Guestbook(webapp.RequestHandler):
 
 class Signknight(webapp.RequestHandler):
   def post(self):
-    kprofile = Knightprofile()
+	kprofile = Knightprofile()
 
-    if users.get_current_user():
-      kprofile.user = users.get_current_user()
-    kprofile.name = self.request.get('name')
-    kprofile.gender = self.request.get('gender')
-    kprofile.time = self.request.get('time')
-    kprofile.fromm = self.request.get('from')
-    kprofile.to = self.request.get('to')
-    kprofile.email= self.request.get('email')
-    kprofile.fb = self.request.get('fb')
-    kprofile.day = self.request.get('day')
-    kprofile.phone = self.request.get('phone')
-    rprofiles_query = Riderprofile.all().order('-submitdate')
-    rprofiles = rprofiles_query.fetch(10)
-    for rprofile in rprofiles:
-	if (rprofile.time == kprofile.time) and (rprofile.fromm == kprofile.fromm) and (rprofile.to == kprofile.to) and (rprofile.day == kprofile.day) :
+	if users.get_current_user():
+		kprofile.user = users.get_current_user()
+		kprofile.name = self.request.get('name')
+	if kprofile.name =="Unknown" :
+		self.redirect('/knight')
+	kprofile.gender = self.request.get('gender')
+	kprofile.time = self.request.get('time')
+	kprofile.fromm = self.request.get('from')
+	kprofile.to = self.request.get('to')
+	kprofile.email= self.request.get('email')
+	kprofile.fb = self.request.get('fb')
+	kprofile.day = self.request.get('day')
+	kprofile.phone = self.request.get('phone')
+	rprofiles_query = Riderprofile.all().order('-submitdate')
+	rprofiles = rprofiles_query.fetch(10)
+	for rprofile in rprofiles:
+		if (rprofile.time == kprofile.time) and (rprofile.fromm == kprofile.fromm) and (rprofile.to == kprofile.to) and (rprofile.day == kprofile.day) :
 				Match = Matchprofile()
 				Match.day = kprofile.day
 				Match.knight = kprofile.user
@@ -185,50 +144,51 @@ class Signknight(webapp.RequestHandler):
 				Match.rphone = rprofile.phone
 				Match.put()
 
-    kprofile.put()
-    self.redirect('/')
+	kprofile.put()
+	self.redirect('/')
 
 class Signrider(webapp.RequestHandler):
   def post(self):
-    rprofile = Riderprofile()
+	rprofile = Riderprofile()
 
-    if users.get_current_user():
-      rprofile.user = users.get_current_user()
-    rprofile.name = self.request.get('name')
-    rprofile.gender = self.request.get('gender')
-    rprofile.time = self.request.get('time')
-    rprofile.fromm = self.request.get('from')
-    rprofile.to = self.request.get('to')
-    rprofile.email= self.request.get('email')
-    rprofile.fb = self.request.get('fb')
-    rprofile.day = self.request.get('day')
-    rprofile.phone = self.request.get('phone')
+	if users.get_current_user():
+		rprofile.user = users.get_current_user()
+	
+	rprofile.name = self.request.get('name')
+	rprofile.gender = self.request.get('gender')
+	rprofile.time = self.request.get('time')
+	rprofile.fromm = self.request.get('from')
+	rprofile.to = self.request.get('to')
+	rprofile.email= self.request.get('email')
+	rprofile.fb = self.request.get('fb')
+	rprofile.day = self.request.get('day')
+	rprofile.phone = self.request.get('phone')
+	
+	kprofiles_query = Knightprofile.all().order('-submitdate')
+	kprofiles = kprofiles_query.fetch(10)
 
-    kprofiles_query = Knightprofile.all().order('-submitdate')
-    kprofiles = kprofiles_query.fetch(10)
-
-    for kprofile in kprofiles:
-	if (rprofile.time == kprofile.time) and (rprofile.fromm == kprofile.fromm) and (rprofile.to == kprofile.to) and (rprofile.day == kprofile.day) :
-				Match = Matchprofile()
-				Match.day = kprofile.day
-				Match.knight = kprofile.user
-				Match.kname = kprofile.name
-				Match.rider = rprofile.user
-				Match.rname = rprofile.name
-				Match.time = rprofile.time
-				Match.fromm = rprofile.fromm
-				Match.to = rprofile.to	
-				Match.kfb = kprofile.fb
-				Match.kemail = kprofile.email
-				Match.kphone = kprofile.phone
-				Match.rfb = rprofile.fb
-				Match.remail = rprofile.email
-				Match.rphone = rprofile.phone
-				Match.put()
-
-
-    rprofile.put()
-    self.redirect('/')
+	for kprofile in kprofiles:
+		if (rprofile.time == kprofile.time) and (rprofile.fromm == kprofile.fromm) and (rprofile.to == kprofile.to) and (rprofile.day == kprofile.day) :
+			Match = Matchprofile()
+			Match.day = kprofile.day
+			Match.knight = kprofile.user
+			Match.kname = kprofile.name
+			Match.rider = rprofile.user
+			Match.rname = rprofile.name
+			Match.time = rprofile.time
+			Match.fromm = rprofile.fromm
+			Match.to = rprofile.to	
+			Match.kfb = kprofile.fb
+			Match.kemail = kprofile.email
+			Match.kphone = kprofile.phone
+			Match.rfb = rprofile.fb
+			Match.remail = rprofile.email
+			Match.rphone = rprofile.phone
+			Match.put()
+	
+	
+	rprofile.put()
+	self.redirect('/')
 
 class Admin(webapp.RequestHandler):
   def get(self):
@@ -238,7 +198,7 @@ class Admin(webapp.RequestHandler):
 	rprofiles = rprofiles_query.fetch(10)
 	matchprofiles_query = Matchprofile.all().order('-submitdate')
 	matchprofiles = matchprofiles_query.fetch(10)
-
+	
 	template_values = {
 		'kprofiles': kprofiles,
 		'rprofiles': rprofiles,
@@ -253,15 +213,25 @@ class Admin(webapp.RequestHandler):
 
 class Result(webapp.RequestHandler):
   def get(self):
+	if users.get_current_user():
+		url = users.create_logout_url(self.request.uri)
+		url_linktext = 'Logout'
+	else:
+		url = users.create_login_url(self.request.uri)
+		url_linktext = 'To use this service, please login here'
 	matchkprofiles_query = Matchprofile.all().order('-submitdate')
 	matchkprofiles = matchkprofiles_query.filter('knight = ', users.get_current_user())
-
+	matchkprofiles = matchkprofiles.fetch(10)
+	
 	matchrprofiles_query = Matchprofile.all().order('-submitdate')
 	matchrprofiles = matchrprofiles_query.filter('rider = ', users.get_current_user())
-
+	matchrprofiles = matchrprofiles.fetch(10)
+	
 	template_values = {
 		'matchkprofiles': matchkprofiles,
 		'matchrprofiles': matchrprofiles,
+		'url': url,
+		'url_linktext': url_linktext,
 		'login': users.get_current_user(),
       }
 
@@ -316,9 +286,7 @@ application = webapp.WSGIApplication(
                                       ('/signrider', Signrider),
                                       ('/signknight', Signknight),
 				      ('/admin', Admin),
-				      ('/homework', Homework),
 				      ('/homework/profile', Homeworkprofile),
-				      ('/homework/sign',HWGuestbook),
 				      ('/result',Result)
                                      ],
                                      debug=True)

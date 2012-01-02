@@ -1,14 +1,19 @@
 <html>
   <head>
-  <title>Younger's Bike - An online riding-together registration system </title>
-    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+  <title>Younger's Bike - An online riding-together registration system </title>
   </head>
 
 
   <body>
+<div class="container">
+
 <a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
-<p>Welcome to Administration system!!!</p>
+
+{% if login %}
+
+<p>Welcome to Administration Log {{login.nickname}}!!!</p>
 
     <h3>Knights</h3>
 
@@ -22,11 +27,10 @@
 	  From
       <b>{{ kprofile.fromm }}</b>
 	  to
-
       <b>{{ kprofile.to  }}</b>
-
-
-	  <b>{{ kprofile.to  }}</b>
+	  on:<b>{{ kprofile.day  }}</b>
+	  fb:<b>{{ kprofile.fb  }}</b>
+	  email:<b>{{ kprofile.email  }}</b>
 
       </p>
     {% endfor %} 
@@ -44,7 +48,7 @@
       <b>{{ rprofile.fromm }}</b>
 	  to
 	  <b>{{ rprofile.to  }}</b>
-	  on<b>{{ rprofile.day  }}</b>
+	  on:<b>{{ rprofile.day  }}</b>
 	  fb:<b>{{ rprofile.fb  }}</b>
 	  email:<b>{{ rprofile.email  }}</b>
       </p>
@@ -64,7 +68,10 @@
       </p>
     
     {% endfor %}    
-    
+
+{% endif %}
+
+</div>    
 
   </body>
 </html>
