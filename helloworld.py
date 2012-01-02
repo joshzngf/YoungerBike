@@ -78,7 +78,7 @@ class Matchprofile(db.Model):
 class MainPage(webapp.RequestHandler):
   def get(self):
 	greetings_query = Greeting.all().order('-date')
-	greetings = greetings_query.fetch(5)
+	greetings = greetings_query.fetch(8)
 	if users.get_current_user():
 	  url = users.create_logout_url(self.request.uri)
 	  url_linktext = 'Logout'
