@@ -1,12 +1,15 @@
 <html>
   <head>
+  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
   <title>Younger's Bike - An online riding-together registration system </title>
   </head>
 
 
   <body>
-<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
-<p>Here are your results:</p>
+	<div class="container">
+		<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
+		<p>Here are your results:</p>
 
 	<h3>Match for you being a rider</h3> 
     {% for matchprofile in matchrprofiles %}
@@ -36,7 +39,7 @@
       </p>
     
     {% endfor %}   
-
+</div>
   </body>
 </html>
 

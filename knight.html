@@ -1,19 +1,56 @@
 <html>
+  <head>
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+  </head>
   <body>
-	<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
-
-    {% if login %}
-    <p>
-	Welcome to Knight page <b>{{ login.nickname }}</b> !!
-    </p>
-    <form action="/signknight" method="post">
-      <div>Your Name:<input name="name" id="name"></div>
-      <div>Email:<input type="TEXT" name="email"></div>
-      <div>Facebook Profile Page:<input type="TEXT" name="fb"></div>
-      <div>Phone No.<input type="TEXT" name="phone"></div>
-      <div>Gender:<input type="radio" name="gender" value="male"/>Male <input type="radio" name="gender" value="female"/>Female</div>
-      <div>
-      For the 
+	<div class="container">
+		<div class="row">
+			<div id="header" class="span12">
+				<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
+				<div class="nav"><a href="{{ url }}">{{ url_linktext }}</a></div>
+				<div class="nav"><a href="/">Back To Main Page</a></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span16">
+				{% if login %}
+				<h2>
+				Welcome to Knight page <b>{{ login.nickname }}</b> !!
+				</h2>
+				<form class="span8" action="/signknight" method="post">
+      <fieldset>
+		<div class="clearfix">
+			<label for="name">Your Name:</label>
+			<div class="input">
+			<input type="text" name="name" id="name"/>
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="email">Email:</label>
+			<div class="input">
+				<input type="TEXT" name="email"/>
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="fb">Facebook Profile Page:</label>
+			<div class="input">
+				<input type="TEXT" name="fb"/>
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="phone">Phone No.</label>
+			<div class="input">
+				<input type="TEXT" name="phone">
+			</div>
+		</div>
+		<div class="clearfix">
+			 <label for="gender">Gender:</label>
+			<input type="radio" name="gender" value="male"/>Male</input>
+			<input type="radio" name="gender" value="female"/>Female</input>
+		</div>
+		<div class="clearfix">
+		 For the class 
       <select name="time" id="time">
         <option value="null" selected> </option>
         <option value="1">1</option>
@@ -32,20 +69,23 @@
         <option value="d">D</option>
         <option value="e">E</option>
       
-</select>
-class on
-<select name="day">
-	<option value="null" selected></option>
-	<option value="Monday">Monday</option>
-	<option value="Tuesday">Tuesday</option>
-	<option value="Wednesday">Wednesday</option>
-	<option value="Thursday">Thursday</option>
-	<option value="Friday">Friday</option>
-	<option value="Saturday">Saturday</option>
-	<option value="Sunday">Sunday</option>
-</select>
-      </div>
-      from 
+	</select>
+	</div>
+	<div class="clearfix">
+	on
+	<select name="day">
+		<option value="null" selected></option>
+		<option value="Monday">Monday</option>
+		<option value="Tuesday">Tuesday</option>
+		<option value="Wednesday">Wednesday</option>
+		<option value="Thursday">Thursday</option>
+		<option value="Friday">Friday</option>
+		<option value="Saturday">Saturday</option>
+		<option value="Sunday">Sunday</option>
+	</select>
+	</div>
+	<div class="clearfix">
+     from 
 	  <select name="from" id="from">
         <option>普通(含博雅)</option>
         <option>新生</option>
@@ -55,7 +95,9 @@ class on
         <option>長興</option>
         <option>大一女</option>
       </select> 
-      to
+	</div>
+	<div class="clearfix">
+	to
 	  <select name="to" id="to">
         <option>普通(含博雅)</option>
         <option>新生</option>
@@ -65,12 +107,22 @@ class on
         <option>長興</option>
         <option>大一女</option>
       </select> 
-      <div><input type="submit" value="Send and wait!"></div>
+	  </div>
+	  </fieldset>
+	  <div class="actions">
+	  <input type="submit" value="Send and wait!" class="btn primary"/>
+     </div>
+      
+     
+     
     </form>
-    {% endif %}
-    <a href="{{ url }}">{{ url_linktext }}</a></br>
-    <a href="/">Back To Main Page</a>
-    <p>
-    <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2F%25E5%258F%25B0%25E5%25A4%25A7%25E8%25B3%2587%25E5%25B7%25A5%25E5%2585%258D%25E8%25B2%25BB%25E6%25A0%25A1%25E5%2585%25A7%25E6%258E%25A5%25E9%25A7%2581%25E8%25BB%258A%25E5%25B4%25B5%25E5%2593%25A5%25E8%2585%25B3%25E8%25B8%258F%25E8%25BB%258A%2F284978538189226&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe></p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row">
+			<div class="span16">
+			<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2F%25E5%258F%25B0%25E5%25A4%25A7%25E8%25B3%2587%25E5%25B7%25A5%25E5%2585%258D%25E8%25B2%25BB%25E6%25A0%25A1%25E5%2585%25A7%25E6%258E%25A5%25E9%25A7%2581%25E8%25BB%258A%25E5%25B4%25B5%25E5%2593%25A5%25E8%2585%25B3%25E8%25B8%258F%25E8%25BB%258A%2F284978538189226&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
+			</div>
+		</div>
   </body>
 </html>

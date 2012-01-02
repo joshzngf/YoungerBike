@@ -1,58 +1,52 @@
 <html>
   <head>
   <title>Younger's Bike - An online riding-together registration system </title>
-  </head>
+  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+ </head>
 
 
   <body>
-
-	  <table width="1000" border="0"><tr>
-		  <td width="500px" scope="row" valign="top">
-	<p>
-	<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
-	</p>
-	<p>
-	<iframe width="640" height="360" src="http://www.youtube.com/embed/62-k783kNOw?rel=0" frameborder="0" allowfullscreen></iframe>
-    </p>
-	{% if login %}
-      <p>
-	  <a href="/knight"><img src="http://csie.ntu.edu.tw/~b00902084/giveride.png" alt="Be someone's knight" width="351" height="55" /></a>
-      <a href="/rider"><img src="http://csie.ntu.edu.tw/~b00902084/takeride.png" alt="Ride on other's bike" width="351" height="55" /></a>
-      </p>
-<p><h3><a href="/result"><img src="http://csie.ntu.edu.tw/~b00902084/result.png" alt="result.png" width="700" height="55" /></a></h3></p>
-    
-
-    {% for greeting in greetings %}
-	  {{ greeting.date.date }}
-	  {{ greeting.date.hour }}: {{ greeting.date.minute }}:{{ greeting.date.second }}</br>
-      {% if greeting.author %}
-        <b>{{ greeting.author.nickname }}</b> says:
-      {% else %}
-       A strange person says:
-      {% endif %}
-      <blockquote>{{ greeting.content|escape }}</blockquote>
-    {% endfor %}
-    
-    {% if login %}
-      <form action="/sign" method="post">
-        <div><textarea name="content" rows="3" cols="60"></textarea></div>
-        <div><input type="submit" value="Sign Guestbook"></div>
-      </form>
-    {% endif %}
-
-    {% endif %}
-    
-	<p>
-    <h3><a href="{{ url }}">{{ url_linktext }}</a></h3>
-    </p>
-    </td>
-    <td width="250px" valign="top">
-	    <BR /><BR /><BR /><BR /><BR /><BR />
-    <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2F%25E5%258F%25B0%25E5%25A4%25A7%25E8%25B3%2587%25E5%25B7%25A5%25E5%2585%258D%25E8%25B2%25BB%25E6%25A0%25A1%25E5%2585%25A7%25E6%258E%25A5%25E9%25A7%2581%25E8%25BB%258A%25E5%25B4%25B5%25E5%2593%25A5%25E8%2585%25B3%25E8%25B8%258F%25E8%25BB%258A%2F284978538189226&amp;width=250&amp;height=558&amp;colorscheme=light&amp;show_faces=true&amp;border_color&amp;stream=true&amp;header=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:250px; height:558px;" allowTransparency="true"></iframe>
-</td>
-</tr>
-</table>
-<hr>
-<p align="center"><h6 align="center">Copyright© 2011 YoungerBike. All rights Reserved.<br />Made by NTU CSIE 莊弘義 謝元崵 江洵安<br />the must-have course URL: <a href="http://www.ntumobile.org/" >http://www.ntumobile.org/</a></h6></p>
- </body>
+	<div class="container">
+		<div class="row">
+			<div id="header" class="span12">
+			<a href="/"><img src="http://csie.ntu.edu.tw/~b00902084/younger.jpg" alt="younger.jpg" width="351" height="110.5s" /></a>
+			<div class="nav"><a href="{{ url }}">{{ url_linktext }}</a></div>
+			</div>
+			<div class="span12">
+		<iframe width="640" height="360" src="http://www.youtube.com/embed/62-k783kNOw?rel=0" frameborder="0" allowfullscreen></iframe>
+		{% if login %}
+		<a href="/knight"><img src="http://csie.ntu.edu.tw/~b00902084/giveride.png" alt="Be someone's knight" width="351" height="55" /></a>
+		<a href="/rider"><img src="http://csie.ntu.edu.tw/~b00902084/takeride.png" alt="Ride on other's bike" width="351" height="55" /></a>
+		<a href="/result"><img src="http://csie.ntu.edu.tw/~b00902084/result.png" alt="result.png" width="700" height="55" /></a>    
+		{% endif %}
+	</div>
+			<div class="span4">
+	    <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2F%25E5%258F%25B0%25E5%25A4%25A7%25E8%25B3%2587%25E5%25B7%25A5%25E5%2585%258D%25E8%25B2%25BB%25E6%25A0%25A1%25E5%2585%25A7%25E6%258E%25A5%25E9%25A7%2581%25E8%25BB%258A%25E5%25B4%25B5%25E5%2593%25A5%25E8%2585%25B3%25E8%25B8%258F%25E8%25BB%258A%2F284978538189226&amp;width=250&amp;height=558&amp;colorscheme=light&amp;show_faces=true&amp;border_color&amp;stream=true&amp;header=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:250px; height:558px;" allowTransparency="true"></iframe>
+	</div>
+			<div class="span16">
+		{% for greeting in greetings %}
+			{{ greeting.date.date }}
+			{{ greeting.date.hour }}: {{ greeting.date.minute }}:{{ greeting.date.second }}</br>
+			{% if greeting.author %}
+				<b>{{ greeting.author.nickname }}</b> says:
+			{% else %}
+				A strange person says:
+			{% endif %}
+			<blockquote>{{ greeting.content|escape }}</blockquote>
+		{% endfor %}
+		{% if login %}
+		<form action="/sign" method="post">
+			<textarea name="content" rows="3" cols="60"></textarea>
+			<input type="submit" value="Sign Guestbook">
+			</form>
+			{% endif %}
+		</div>
+			<hr/>
+			<div class="span16">
+				<p align="center"><h6 align="center">Copyright© 2011 YoungerBike. All rights Reserved.<br />Made by NTU CSIE 莊弘義 謝元崵 江洵安<br />the must-have course URL: <a href="http://www.ntumobile.org/" >http://www.ntumobile.org/</a></h6></p>
+			</div>
+		</div>
+	</div>
+  </body>
 </html>
